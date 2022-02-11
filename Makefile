@@ -1,21 +1,21 @@
 CC = g++
 CFLAGS = -g -std=c++11
 SOURCES = $(wildcard *.cpp)
-INCLUDE_DIRS = -I ./include/
-LIB_DIRS = -L .
+INCLUDE_DIR = -I ./include/
+LIB_DIR = -L .
 ifeq ($(LANG),)
-CLIBS = -lord_sdk -lpthread -lwsock32 -lws2_32
+LIBS = -lord_sdk -lpthread -lwsock32 -lws2_32
 else
-CLIBS = -lord_sdk -lpthread
+LIBS = -lord_sdk -lpthread
 endif
 
 TARGET = sdk_demo
 OBJECTS = $(patsubst %.cpp,%.o,$(SOURCES))
 
 $(TARGET):$(OBJECTS)
-	$(CC)$(LDFLAGS) -o $@ $^ $(LIB_DIRS) $(CLIBS)
+	$(CC) -o $@ $^ $(LIB_DIR) $(LIBS) $(LDFLAGS)
 $(OBJECTS):%.o:%.cpp
-	$(CC) -c $(CFLAGS) $^ -o $@ $(INCLUDE_DIRS) 
+	$(CC) -c $^ -o $@ $(INCLUDE_DIR) $(CFLAGS)
 
 .PHONY:clean
 clean:
